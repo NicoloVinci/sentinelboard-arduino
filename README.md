@@ -1,2 +1,2 @@
 # sentinelboard-arduino
-Branch main -> versione stabile
+Branch dev -> integrazione
