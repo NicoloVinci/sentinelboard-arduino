@@ -1,0 +1,2 @@
+# sentinelboard-arduino
+Sketch principale
