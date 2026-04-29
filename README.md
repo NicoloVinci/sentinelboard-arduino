@@ -19,10 +19,14 @@ utilizzando un protocollo testuale condiviso con la dashboard Qt.
 
 Sensori previsti per SentinelBoard:
 
-- DHT22 — misura temperatura e umidità
-- HC-SR04 — misura distanza, usato anche come rilevatore di presenza
-- PIR — rileva movimento
-- LDR (fotoresistore) — misura la luminosità ambiente
+- 1 DHT22 — misura temperatura e umidità
+- 2 Mini Panneelli fotovoltaici
+- 1 Condensatore 25v ,2200uF
+- 2 batterie 7.4V
+- Tp5100
+- 2S 20A BMS
+- 2 Servo motori
+- 4 LDR (fotoresistore) — misura la luminosità ambiente
 
 Componenti di supporto:
 
