@@ -4,8 +4,7 @@
 Questo repository contiene il firmware Arduino per il progetto SentinelBoard,
 parte del Project Work di TPSIT (4ª ITIS A. Rossi, Vicenza).
 
-Lo sketch legge i dati da più sensori ambientali (temperatura, umidità, distanza,
-movimento, luminosità), li elabora e li invia al PC tramite comunicazione seriale,
+Lo sketch legge i dati da più sensori ambientali (temperatura, umidità, luminosità), li elabora e li invia al PC tramite comunicazione seriale,
 utilizzando un protocollo testuale condiviso con la dashboard Qt.
 
 ---
@@ -49,7 +48,7 @@ void setup() {
 }
 
 ## Formato protocollo seriale
-$TEL;TIME=12345;TEMP=24.6;HUM=51.2;DIST=38.4;MOTION=1;LIGHT=420;STATUS=OK
+$TEL;TIME=12345;TEMP=24.6;HUM=51.2;LIGHT=420;STATUS=OK
 
 ## Pin usati (DA AGGIORNARE)
 
