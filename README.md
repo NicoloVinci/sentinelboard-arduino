@@ -1,7 +1,7 @@
 # SentinelBoard Arduino Firmware - Branch main per versione stabile
 
 ## Descrizione
-Questo repository contiene il firmware ESP32 per il progetto SentinelBoard,
+Questo repository contiene il firmware Arduino per il progetto SentinelBoard,
 parte del Project Work di TPSIT (4ª ITIS A. Rossi, Vicenza).
 
 Lo sketch legge i dati da più sensori ambientali (temperatura, umidità, luminosità), li elabora e li invia al PC tramite comunicazione seriale,
@@ -10,7 +10,7 @@ utilizzando un protocollo testuale condiviso con la dashboard Qt.
 ---
 
 ## Board Arduino usata
-- ESP32
+- Arduino
 
 ---
 
@@ -32,7 +32,7 @@ Componenti di supporto:
 - Breadboard
 - Jumper maschio-maschio
 - Resistenze (per LDR e pull‑up/pull‑down se necessari)
-- Cavo USB per collegare ESP32 al PC
+- Cavo USB per collegare Arduino al PC
 
 ---
 
@@ -56,7 +56,7 @@ $TEL;TIME=12345;TEMP=24.6;HUM=51.2;LIGHT=420;STATUS=OK
 DHT sensor library, Adafruit Unified Sensor, Servo.h
 
 ## Come caricare lo sketch
-1.	Collegare l’ESP32 via USB
+1.	Collegare l’Arduino via USB
 2.	Aprire il progetto in CLion
 3.	Selezionare l’environment giusto in  platformio.ini 
 4.	Fare Upload del firmware
