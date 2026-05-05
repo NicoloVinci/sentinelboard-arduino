@@ -4,8 +4,7 @@
 Questo repository contiene il firmware Arduino per il progetto SentinelBoard,
 parte del Project Work di TPSIT (4ª ITIS A. Rossi, Vicenza).
 
-Lo sketch legge i dati da più sensori ambientali (temperatura, umidità, luminosità), li elabora e li invia al PC tramite comunicazione seriale,
-utilizzando un protocollo testuale condiviso con la dashboard Qt.
+Lo sketch legge i dati da più sensori ambientali (temperatura, umidità, luminosità), li elabora e li invia al PC tramite comunicazione seriale, utilizzando un protocollo testuale condiviso con la dashboard Qt.
 
 ---
 
@@ -58,5 +57,7 @@ DHT sensor library, Adafruit Unified Sensor, Servo.h
 ## Come caricare lo sketch
 1.	Collegare l’Arduino via USB
 2.	Aprire il progetto in CLion
-3.	Selezionare l’environment giusto in  platformio.ini 
+3.	Selezionare l’environment giusto in  platformio.ini  (Arduino)
 4.	Fare Upload del firmware
+In alternativa, da terminale, posizionarsi nel path dello sketch, digitare 'pio run -t upload' e premere Invio.
+Per attivare il monitor seriale da terminale, posizionarsi nel path dello sketch, digitare 'pio device monitor -b 115200' e premere Invio.
