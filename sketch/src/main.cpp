@@ -1,22 +1,30 @@
 #include <Arduino.h>
 
+const int LED_PIN = 8;
+
 bool systemStarted = false;
 String inputLine = "";
 unsigned long lastSampleTime = 0;
 unsigned long timeCounter = 0;
 
 void setup() {
+    pinMode(LED_PIN, OUTPUT);
+    digitalWrite(LED_PIN, LOW);
+
     Serial.begin(115200);
 }
 
 void handleCommand(const String& cmd) {
-    if (cmd == "START") {
+    if (cmd == "LED_ON") {
+        digitalWrite(LED_PIN, HIGH);
         systemStarted = true;
         timeCounter = 0;
-        Serial.println("ACK_START");
-    } else if (cmd == "STOP") {
+        lastSampleTime = millis();
+        Serial.println("ACK_LED_ON");
+    } else if (cmd == "LED_OFF") {
+        digitalWrite(LED_PIN, LOW);
         systemStarted = false;
-        Serial.println("ACK_STOP");
+        Serial.println("ACK_LED_OFF");
     }
 }
 
@@ -26,8 +34,11 @@ void loop() {
 
         if (c == '\n') {
             inputLine.trim();
-            if (!inputLine.length() > 0)
+
+            if (inputLine.length() > 0) {
                 handleCommand(inputLine);
+            }
+
             inputLine = "";
         } else {
             inputLine += c;
@@ -36,6 +47,7 @@ void loop() {
 
     if (systemStarted) {
         unsigned long now = millis();
+
         if (now - lastSampleTime >= 1000) {
             lastSampleTime = now;
             timeCounter += 1000;
