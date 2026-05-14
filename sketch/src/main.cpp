@@ -1,61 +1,48 @@
-#include <Arduino.h>
+#include <Arduino.h>      // obbligatorio in PlatformIO
+#include <DHT.h>
 
-const int LED_PIN = 8;
+#define DHTPIN    2
+#define DHTTYPE   DHT22
+#define LDRPIN    A0
 
-bool systemStarted = false;
-String inputLine = "";
-unsigned long lastSampleTime = 0;
-unsigned long timeCounter = 0;
+DHT dht(DHTPIN, DHTTYPE);
+
+unsigned long sampleInterval = 2000;
+unsigned long lastSample     = 0;
+unsigned long timeCounter    = 0;
 
 void setup() {
-    pinMode(LED_PIN, OUTPUT);
-    digitalWrite(LED_PIN, LOW);
-
     Serial.begin(115200);
-}
-
-void handleCommand(const String& cmd) {
-    if (cmd == "LED_ON") {
-        digitalWrite(LED_PIN, HIGH);
-        systemStarted = true;
-        timeCounter = 0;
-        lastSampleTime = millis();
-        Serial.println("ACK_LED_ON");
-    } else if (cmd == "LED_OFF") {
-        digitalWrite(LED_PIN, LOW);
-        systemStarted = false;
-        Serial.println("ACK_LED_OFF");
-    }
+    dht.begin();
 }
 
 void loop() {
-    while (Serial.available() > 0) {
-        char c = (char)Serial.read();
+    unsigned long now = millis();
 
-        if (c == '\n') {
-            inputLine.trim();
+    if (now - lastSample >= sampleInterval) {
+        lastSample   = now;
+        timeCounter += sampleInterval;
 
-            if (inputLine.length() > 0) {
-                handleCommand(inputLine);
-            }
+        float  temp  = dht.readTemperature();
+        float  hum   = dht.readHumidity();
+        int    light = analogRead(LDRPIN);
 
-            inputLine = "";
-        } else {
-            inputLine += c;
+        String status = "OK";
+        if (isnan(temp) || isnan(hum)) {
+            status = "ERR";
+            temp = 0.0;
+            hum  = 0.0;
         }
-    }
 
-    if (systemStarted) {
-        unsigned long now = millis();
-
-        if (now - lastSampleTime >= 1000) {
-            lastSampleTime = now;
-            timeCounter += 1000;
-
-            Serial.print("$TEL;TIME=");
-            Serial.print(timeCounter);
-            Serial.print(";TEMP=24.5;HUM=51.0;DIST=38.0;MOTION=0;LIGHT=420;STATUS=OK");
-            Serial.println();
-        }
+        Serial.print("$TEL;TIME=");
+        Serial.print(timeCounter);
+        Serial.print(";TEMP=");
+        Serial.print(temp, 1);
+        Serial.print(";HUM=");
+        Serial.print(hum, 1);
+        Serial.print(";LIGHT=");
+        Serial.print(light);
+        Serial.print(";STATUS=");
+        Serial.println(status);
     }
 }
